@@ -1,0 +1,28 @@
+<%= form_with(model: event) do |form| %>
+  <% if event.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+        <% event.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "Name:" %>
+    <%= form.text_field :name %>
+
+    <%= form.label :date, "Date and time:" %>
+    <%= form.datetime_local_field :date %>
+
+    <%= form.label :location, "Location:" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
