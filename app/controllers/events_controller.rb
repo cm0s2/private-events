@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = current_user.build_event(event_params)
+    @event = current_user.events.build(event_params)
 
     if @event.save
       redirect_to root_path, notice: "Event was successfully created."
