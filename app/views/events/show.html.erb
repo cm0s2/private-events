@@ -2,6 +2,18 @@
 
 <%= render @event %>
 
+<% if @event.attendees.any? %>
+  <h2>Attendees</h2>
+  <ul>
+    <% @event.attendees.each do |user| %>
+      <li><%= user.email %></li>
+    <% end %>
+  </ul>
+<% end %>
+<p>
+<%= button_to "Attend event", event_users_path(event_id: @event.id), method: :post %>
+</p>
+
 <div>
   <%#= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to events", events_path %>
