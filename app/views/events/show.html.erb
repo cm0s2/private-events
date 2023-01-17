@@ -11,13 +11,13 @@
   </ul>
 <% end %>
 
-<% unless @event.attendees.where(id: current_user.id).any? %>
 <p>
-<%= button_to "Attend event", event_users_path(event_id: @event.id), method: :post %>
+  <% unless @event.attendees.where(id: current_user.id).any? %>
+    <%= button_to "Attend event", event_users_path(event_id: @event.id), method: :post %>
+  <% else %>
+    <%= button_to 'Cancel attending', event_user_path(EventUser.where(attendee_id: current_user.id, attended_event_id: @event.id).first), method: :delete, data: {turbo_confirm: 'Are you sure?'} %>
+  <% end %>
 </p>
-<% else %>
-<%= link_to 'Cancel attending', event_user_path(EventUser.where(attendee_id: current_user.id, attended_event_id: @event.id).first), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
-<% end %>
 
 <div>
   <%#= link_to "Edit this post", edit_post_path(@post) %> |

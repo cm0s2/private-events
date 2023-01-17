@@ -7,17 +7,20 @@ class EventUsersController < ApplicationController
 
     if event_user.save
       flash[:notice] = "You joined the event"
-      redirect_to events_path(event)
+      redirect_to event_path(event)
     else
-      redirect_to events_path(event)
+      redirect_to event_path(event)
     end
   end
 
   def destroy
-    event = Event.find(params[:event_id])
-    event.attendees.where(id: current_user.id).destroy
+    event_user = EventUser.find(params[:id])
+    event = event_user.attended_event
+    event_user.destroy
+
+    #event.attendees.where(id: current_user.id).destroy
     # @event_user.destroy
-    redirect_to events_path
+    redirect_to event_path(event)
   end
 
   def update
