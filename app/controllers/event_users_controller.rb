@@ -14,7 +14,10 @@ class EventUsersController < ApplicationController
   end
 
   def destroy
-
+    event = Event.find(params[:event_id])
+    event.attendees.where(id: current_user.id).destroy
+    # @event_user.destroy
+    redirect_to events_path
   end
 
   def update
