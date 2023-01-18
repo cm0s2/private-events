@@ -18,8 +18,6 @@ class EventUsersController < ApplicationController
     event = event_user.attended_event
     event_user.destroy
 
-    #event.attendees.where(id: current_user.id).destroy
-    # @event_user.destroy
     redirect_to event_path(event)
   end
 
