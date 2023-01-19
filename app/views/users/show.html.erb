@@ -11,7 +11,7 @@
 <h2>Attending upcoming events</h2>
 
 <ul>
-  <% @user.attended_events.where('date > ?', DateTime.now).each do |event| %>
+  <% @user.attended_events.future.each do |event| %>
   <li><%= event.name %></li>
   <% end %>
 </ul>
@@ -19,7 +19,7 @@
 <h2>Attended events</h2>
 
 <ul>
-  <% @user.attended_events.where('date < ?', DateTime.now).each do |event| %>
+  <% @user.attended_events.past.each do |event| %>
   <li><%= event.name %></li>
   <% end %>
 </ul>

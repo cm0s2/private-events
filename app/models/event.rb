@@ -5,4 +5,15 @@ class Event < ApplicationRecord
   has_many :attendees, through: :event_users
 
   validates :name, :date, :location, presence: true
+
+  scope :future, -> { where('date >= ?', DateTime.now) }
+  scope :past, -> { where('date < ?', DateTime.now) }
+
+  # def self.future
+  #   self.where('date >= ?', DateTime.now)
+  # end
+
+  # def self.past
+  #   self.where('date < ?', DateTime.now)
+  # end
 end
