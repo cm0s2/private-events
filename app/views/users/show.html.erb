@@ -4,7 +4,7 @@
 
 <ul>
   <% @user.events.each do |event| %>
-  <li><%= event.name %></li>
+  <li><%= link_to event.name, event %></li>
   <% end %>
 </ul>
 
@@ -12,7 +12,7 @@
 
 <ul>
   <% @user.attended_events.future.each do |event| %>
-  <li><%= event.name %></li>
+  <li><%= link_to event.name, event %></li>
   <% end %>
 </ul>
 
@@ -20,6 +20,6 @@
 
 <ul>
   <% @user.attended_events.past.each do |event| %>
-  <li><%= event.name %></li>
+  <li><%= link_to event.name, event %></li>
   <% end %>
 </ul>

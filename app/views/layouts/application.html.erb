@@ -11,6 +11,16 @@
   </head>
 
   <body>
+  <nav>
+    <%= link_to "Home", root_path %>
+    <% if signed_in? %>
+      <%= link_to "New Event", new_event_path %>
+      <%= link_to "Profile", user_path(current_user) %>
+      <%= link_to "Sign out", destroy_user_session_path %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+  </nav>
     <%= yield %>
   </body>
 </html>
