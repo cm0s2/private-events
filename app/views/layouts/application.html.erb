@@ -21,6 +21,9 @@
       <%= link_to "Login", new_user_session_path %>
     <% end %>
   </nav>
+  <% if notice %>
+    <p style="color: green"><%= notice %></p>
+  <% end %>
     <%= yield %>
   </body>
 </html>
