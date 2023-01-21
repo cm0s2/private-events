@@ -4,7 +4,7 @@
 
 <ul>
   <% @user.events.each do |event| %>
-  <li><%= link_to event.name, event %> | <%= link_to "Edit", edit_event_path(event) %> </li>
+  <li><%= link_to event.name, event %> | <%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Destroy", event_path(event), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to delete #{event.name}?" } %></li>
   <% end %>
 </ul>
 
