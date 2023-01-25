@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: %i[ new create update destroy ]
-  before_action :require_permission, only: %i[ edit, update, destroy ]
+  before_action :require_permission, only: %i[ edit update destroy ]
 
   def index
     @events = Event.all
@@ -51,7 +51,7 @@ class EventsController < ApplicationController
 
     def require_permission
       if Event.find(params[:id]).creator != current_user
-        redirect_to events_Path, flash: {error: "You do not have permission to do that."}
+        redirect_to events_path, flash: {error: "You do not have permission to do that."}
       end
     end
 
