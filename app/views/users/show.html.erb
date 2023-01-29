@@ -1,25 +1,37 @@
 <h1><%= @user.email %></h1>
 
-<h2>Hosted events</h2>
+<% if @user == current_user %>
 
-<ul>
-  <% @user.events.each do |event| %>
-  <li><%= link_to event.name, event %> | <%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Destroy", event_path(event), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to delete #{event.name}?" } %></li>
-  <% end %>
-</ul>
+  <h2>Hosted events</h2>
 
-<h2>Attending upcoming events</h2>
+  <ul>
+    <% @user.events.each do |event| %>
+    <li><%= link_to event.name, event %> | <%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Destroy", event_path(event), data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to delete #{event.name}?" } %></li>
+    <% end %>
+  </ul>
 
-<ul>
-  <% @user.attended_events.future.each do |event| %>
-  <li><%= link_to event.name, event %></li>
-  <% end %>
-</ul>
+  <h2>Invited events</h2>
 
-<h2>Attended events</h2>
+  <ul>
+    <% @user.attended_events.invited.each do |event| %>
+    <li><%= link_to event.name, event %> | <%= link_to "Accept invitation", event_user_path(EventUser.where(attendee_id: current_user.id, attended_event_id: event.id).first, status: :accepted), data: { "turbo-method": :put } %></li>
+    <% end %>
+  </ul>
 
-<ul>
-  <% @user.attended_events.past.each do |event| %>
-  <li><%= link_to event.name, event %></li>
-  <% end %>
-</ul>
+  <h2>Attending upcoming events</h2>
+
+  <ul>
+    <% @user.attended_events.accepted.future.each do |event| %>
+    <li><%= link_to event.name, event %></li>
+    <% end %>
+  </ul>
+
+  <h2>Attended events</h2>
+
+  <ul>
+    <% @user.attended_events.accepted.past.each do |event| %>
+    <li><%= link_to event.name, event %></li>
+    <% end %>
+  </ul>
+
+<% end %>

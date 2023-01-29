@@ -8,3 +8,22 @@
   <% end %>
 </ul>
 
+<% if user_signed_in? %>
+
+  <h2>Invited events</h2>
+
+  <% current_user.attended_events.invited.each do |event| %>
+    <li>
+      <%= link_to event.name, event %> | | <%= link_to "Accept invitation", event_user_path(EventUser.where(attendee_id: current_user.id, attended_event_id: event.id).first, status: :accepted), data: { "turbo-method": :put } %>
+    </li>
+  <% end %>
+
+  <h2>Accepted events</h2>
+
+  <% current_user.attended_events.accepted.each do |event| %>
+    <li>
+      <%= link_to event.name, event %>
+    </li>
+  <% end %>
+
+<% end %>

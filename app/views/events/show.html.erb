@@ -1,5 +1,11 @@
 <%= render @event %>
 
+<%= form_with url: event_users_path(event_id: @event.id) do |f| %>
+<%= f.label :attendee_id, "Invite a user:" %>
+<%= f.select :attendee_id, options_for_select(@event.invitees.all.map{|a| [a.email, a.id]}, @event.id), include_blank: true %>
+<%= f.submit %>
+<% end %>
+
 <% if @event.attendees.any? %>
   <h2>Attendees</h2>
   <ul>
